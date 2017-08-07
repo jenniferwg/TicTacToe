@@ -1,0 +1,27 @@
+{
+  "name": "tictactoe",
+  "version": "1.0.0",
+  "description": "practice tic tac toe implementation",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jenniferwg/TicTacToe.git"
+  },
+  "author": "Jennifer Wang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jenniferwg/TicTacToe/issues"
+  },
+  "homepage": "https://github.com/jenniferwg/TicTacToe#readme",
+  "dependencies": {
+    "chai": "^4.1.1",
+    "jQuery": "^1.7.4",
+    "mocha": "^3.5.0"
+  }
+}
