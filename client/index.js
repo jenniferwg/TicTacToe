@@ -4,7 +4,7 @@ let initialBoard = [
   [ 0, 0, 0 ]
 ];
 let initialTurn = 'X';
-let currentBoard = initialBoard;
+let currentBoard = initialBoard.map(row => row.slice());
 let currentTurn = 'X';
 
 checkWin = function() {
@@ -44,7 +44,7 @@ checkWin = function() {
 };
 
 newGame = function() {
-  currentBoard = initialBoard;
+  currentBoard = initialBoard.map(row => row.slice());
   initialTurn = initialTurn === 'X' ? 'O' : 'X';
   currentTurn = initialTurn;
   for (let i = 0; i < $('td').length; i++) {
