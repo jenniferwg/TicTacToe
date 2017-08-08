@@ -1,13 +1,19 @@
+const readline = require('readline');
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
 let initialBoard = [
-  [ 0, 0, 0 ],
-  [ 0, 0, 0 ],
-  [ 0, 0, 0 ]
+  [ '-', '-', '-' ],
+  [ '-', '-', '-' ],
+  [ '-', '-', '-' ]
 ];
 let initialTurn = 'X';
 let currentBoard = initialBoard.map(row => row.slice());
 let currentTurn = 'X';
 
-checkWin = function() {
+const checkWin = function() {
   let won = false;
 
   for (let i = 0; i < 3; i++) {
@@ -43,31 +49,58 @@ checkWin = function() {
   return won;
 };
 
-newGame = function() {
+const newGame = function() {
   currentBoard = initialBoard.map(row => row.slice());
   initialTurn = initialTurn === 'X' ? 'O' : 'X';
   currentTurn = initialTurn;
-  for (let i = 0; i < $('td').length; i++) {
-    $($('td')[i]).text('');
-  }
-  $('.status').text(`Player ${currentTurn}'s turn!`);
+  // for (let i = 0; i < $('td').length; i++) {
+  //   $($('td')[i]).text('');
+  // }
+  // $('.status').text(`Player ${currentTurn}'s turn!`);
+  console.log('Welcome to a new game of Tic Tac Toe:');
+  currentBoard.forEach(row => {
+    console.log(row);
+  });
 };
 
-//event handlers
-$('button').on('click', function(e) {
-  newGame();
-});
+//DOM event handlers
+// $('button').on('click', function(e) {
+//   newGame();
+// });
 
-$('td').on('click', function(e) {
-  $(e.target).text(currentTurn);
-  const row = $(e.target).data('row');
-  const col = $(e.target).data('col');
-  currentBoard[row][col] = currentTurn;
+// $('td').on('click', function(e) {
+//   $(e.target).text(currentTurn);
+//   const row = $(e.target).data('row');
+//   const col = $(e.target).data('col');
+//   currentBoard[row][col] = currentTurn;
 
-  if (checkWin()) {
-    $('.status').text(`Player ${currentTurn} wins!`);
-  } else {
-    currentTurn = currentTurn === 'X' ? 'O' : 'X';
-    $('.status').text(`Player ${currentTurn}'s turn!`);
-  }
-});
+//   if (checkWin()) {
+//     $('.status').text(`Player ${currentTurn} wins!`);
+//   } else {
+//     currentTurn = currentTurn === 'X' ? 'O' : 'X';
+//     $('.status').text(`Player ${currentTurn}'s turn!`);
+//   }
+// });
+
+const turnPrompt = function() {
+  rl.question(`Player ${currentTurn}: which < ROW,COL > would you like to play? `, (pos) => {
+    currentBoard[pos.slice(0,1)][pos.slice(2)] = currentTurn;
+    if (checkWin()) {
+      console.log(`Player ${currentTurn} wins!!!`);
+      currentBoard.forEach(row => {
+        console.log(row);
+      });
+      newGame();
+      turnPrompt();
+    } else {
+      currentTurn = currentTurn === 'X' ? 'O' : 'X';
+      currentBoard.forEach(row => {
+        console.log(row);
+      });
+      turnPrompt();
+    }
+  });
+};
+
+newGame();
+turnPrompt();
